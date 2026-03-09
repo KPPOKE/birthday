@@ -10,6 +10,8 @@ import NavDots from './components/NavDots/NavDots'
 import WaveDivider from './components/WaveDivider/WaveDivider'
 import BackgroundParticles from './components/BackgroundParticles/BackgroundParticles'
 import MusicToggle from './components/MusicToggle/MusicToggle'
+import ClickableHearts from './components/ClickableHearts/ClickableHearts'
+import GiftBox from './components/GiftBox/GiftBox'
 import useMagneticHover from './hooks/useMagneticHover'
 import './App.css'
 
@@ -21,6 +23,21 @@ function LoadingScreen({ onFinish }) {
   useMagneticHover(btnRef)
 
   useEffect(() => {
+    // Preload heavy gallery images in the background
+    const imagesToPreload = [
+      '/images/photo1.jpg',
+      '/images/photo2.jpg',
+      '/images/photo3.jpg',
+      '/images/photo4.jpg',
+      '/images/photo5.jpg',
+      '/images/photo6.jpg',
+    ]
+
+    imagesToPreload.forEach((src) => {
+      const img = new Image()
+      img.src = src
+    })
+
     const timer = setTimeout(() => {
       setIsReady(true)
     }, 2500)
@@ -82,13 +99,13 @@ export default function App() {
     }
   }, [])
 
-  return (
+  return !loaded ? (
+    <LoadingScreen onFinish={() => setLoaded(true)} />
+  ) : (
     <>
-      <LoadingScreen onFinish={() => setLoaded(true)} />
-
-      {/* Global enhancements */}
-      <CursorTrail />
+      <ClickableHearts />
       <NavDots lenisRef={lenisRef} />
+      <CursorTrail />
       <BackgroundParticles />
       <MusicToggle />
 
@@ -108,6 +125,8 @@ export default function App() {
         <WaveDivider color="rgba(232, 67, 147, 0.06)" />
 
         <BirthdayWish />
+
+        <GiftBox />
 
         <Footer />
       </div>

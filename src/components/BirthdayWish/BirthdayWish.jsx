@@ -160,7 +160,7 @@ export default function BirthdayWish() {
                 </div>
 
                 <p className="birthday-wish__closing reveal" style={{ transitionDelay: '0.75s' }}>
-                    "Hug dede." 🫂
+                    "Sayang dede." 🫂
                 </p>
             </div>
         </section>

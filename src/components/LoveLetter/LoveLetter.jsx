@@ -94,7 +94,7 @@ export default function LoveLetter() {
                             <p className="love-letter__closing">
                                 I love you, Kucil. More than words could ever say. 💗
                                 <br /><br />
-                                <span className="love-letter__signature">— Hug keni 🫂</span>
+                                <span className="love-letter__signature">— Mamas 🫂</span>
                             </p>
                         </div>
                     </div>
