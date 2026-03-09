@@ -89,8 +89,7 @@ export default function LoveLetter() {
                             <p>
                                 Di hari spesial ini, aku juga mau bilang <span className="love-letter__highlight">
                                     terima kasih aku bisa kenal sama kamu.</span> semoga kamu juga senang juga bisa kenal sama aku
-                                Dan semoga suatu hari nanti,
-                                jarak ini nggak lagi jadi penghalang. 💕
+                                💕
                             </p>
                             <p className="love-letter__closing">
                                 I love you, Kucil. More than words could ever say. 💗
