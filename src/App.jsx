@@ -13,6 +13,7 @@ import MusicToggle from './components/MusicToggle/MusicToggle'
 import ClickableHearts from './components/ClickableHearts/ClickableHearts'
 import GiftBox from './components/GiftBox/GiftBox'
 import useMagneticHover from './hooks/useMagneticHover'
+import { Analytics } from '@vercel/analytics/react'
 import './App.css'
 
 function LoadingScreen({ onFinish }) {
@@ -101,6 +102,7 @@ export default function App() {
 
   return (
     <>
+      <Analytics />
       <MusicToggle />
 
       {!loaded ? (
