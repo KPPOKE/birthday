@@ -9,22 +9,21 @@ export default function MusicToggle() {
 
     useMagneticHover(toggleRef)
 
+    // Initialize audio instance synchronously exactly once so it's ready before the very first render and click
+    if (!audioRef.current && typeof window !== 'undefined') {
+        audioRef.current = new Audio()
+        audioRef.current.loop = true
+        audioRef.current.volume = 0.3
+        audioRef.current.src = '/Mitski - My Love Mine All Mine (Official Lyric Video).mp3'
+    }
+
     const toggle = () => {
-        if (!audioRef.current) {
-            // Create audio element with a placeholder — user can replace the src
-            audioRef.current = new Audio()
-            audioRef.current.loop = true
-            audioRef.current.volume = 0.3
-            audioRef.current.src = '/Mitski - My Love Mine All Mine (Official Lyric Video).mp3'
-        }
+        if (!audioRef.current) return
 
         if (playing) {
             audioRef.current.pause()
         } else {
-            // Only play if there's a src set
-            if (audioRef.current.src && audioRef.current.src !== window.location.href) {
-                audioRef.current.play().catch(() => { })
-            }
+            audioRef.current.play().catch(() => { })
         }
         setPlaying(!playing)
     }

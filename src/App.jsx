@@ -99,37 +99,42 @@ export default function App() {
     }
   }, [])
 
-  return !loaded ? (
-    <LoadingScreen onFinish={() => setLoaded(true)} />
-  ) : (
+  return (
     <>
-      <ClickableHearts />
-      <NavDots lenisRef={lenisRef} />
-      <CursorTrail />
-      <BackgroundParticles />
       <MusicToggle />
 
-      <div className="app">
-        <Hero />
+      {!loaded ? (
+        <LoadingScreen onFinish={() => setLoaded(true)} />
+      ) : (
+        <>
+          <ClickableHearts />
+          <NavDots lenisRef={lenisRef} />
+          <CursorTrail />
+          <BackgroundParticles />
 
-        <WaveDivider color="rgba(232, 67, 147, 0.06)" />
+          <div className="app">
+            <Hero />
 
-        <LoveLetter />
+            <WaveDivider color="rgba(232, 67, 147, 0.06)" />
 
-        <WaveDivider color="rgba(139, 92, 246, 0.06)" flip />
-        <WaveDivider color="rgba(139, 92, 246, 0.06)" />
+            <LoveLetter />
 
-        <Gallery />
+            <WaveDivider color="rgba(139, 92, 246, 0.06)" flip />
+            <WaveDivider color="rgba(139, 92, 246, 0.06)" />
 
-        <WaveDivider color="rgba(232, 67, 147, 0.06)" flip />
-        <WaveDivider color="rgba(232, 67, 147, 0.06)" />
+            <Gallery />
 
-        <BirthdayWish />
+            <WaveDivider color="rgba(232, 67, 147, 0.06)" flip />
+            <WaveDivider color="rgba(232, 67, 147, 0.06)" />
 
-        <GiftBox />
+            <BirthdayWish />
 
-        <Footer />
-      </div>
+            <GiftBox />
+
+            <Footer />
+          </div>
+        </>
+      )}
     </>
   )
 }
