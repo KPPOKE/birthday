@@ -1,0 +1,332 @@
+.love-letter {
+    padding: var(--section-padding);
+    position: relative;
+    overflow: hidden;
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.love-letter__bg-glow {
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    filter: blur(150px);
+    opacity: 0.08;
+    pointer-events: none;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--pink-500);
+}
+
+.love-letter__header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.love-letter__label {
+    font-size: 0.8rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--pink-400);
+    margin-bottom: 12px;
+}
+
+.love-letter__title {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    margin-bottom: 8px;
+}
+
+/* ---------------------------------
+   ENVELOPE CSS 
+   --------------------------------- */
+
+.envelope-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 0;
+    perspective: 1000px;
+}
+
+.envelope {
+    position: relative;
+    width: 300px;
+    height: 200px;
+    background: #e2c0d1;
+    /* inner envelope color */
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    transition: transform 0.4s ease;
+}
+
+.envelope:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 25px 45px rgba(232, 67, 147, 0.2);
+}
+
+.envelope__front {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+/* Bottom pocket of the envelope */
+.envelope__pocket {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-left: 150px solid #f9e1eb;
+    border-right: 150px solid #f9e1eb;
+    border-bottom: 100px solid #f4d6e3;
+    border-top: 100px solid transparent;
+    border-radius: 0 0 8px 8px;
+    z-index: 10;
+}
+
+/* Top flap of the envelope */
+.envelope__flap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-left: 150px solid transparent;
+    border-right: 150px solid transparent;
+    border-top: 120px solid #fcddec;
+    border-radius: 8px 8px 0 0;
+    z-index: 10;
+    transform-origin: top;
+    transition: transform 0.6s ease, z-index 0s 0.3s;
+}
+
+/* Wax seal */
+.envelope__wax-seal {
+    position: absolute;
+    top: 100px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 45px;
+    height: 45px;
+    background: radial-gradient(circle at 30% 30%, #ff4b6e, #c2185b);
+    border-radius: 50%;
+    z-index: 11;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.3), 0 3px 6px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.3s ease;
+}
+
+.envelope__seal-heart {
+    color: #ffb6c1;
+    font-size: 1.2rem;
+    filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.3));
+}
+
+/* The folded paper inside */
+.envelope__paper {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    right: 10px;
+    height: 180px;
+    background: #fff;
+    border-radius: 6px;
+    z-index: 5;
+    /* Below pocket and flap initially */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.8s ease 0.4s;
+    overflow: hidden;
+}
+
+.envelope__paper-content {
+    padding: 24px;
+    text-align: center;
+    color: #c2185b;
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-style: italic;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+.envelope__hint {
+    font-size: 0.8rem;
+    color: #e2c0d1;
+    font-family: var(--font-body);
+    font-style: normal;
+    margin-top: 20px;
+    animation: pulse 2s infinite;
+}
+
+/* ---------------------------------
+   ANIMATE OPEN STATE 
+   --------------------------------- */
+
+.envelope.open {
+    cursor: default;
+    transform: scale(1.1);
+    box-shadow: none;
+}
+
+.envelope.open .envelope__flap {
+    transform: rotateX(180deg);
+    z-index: 4;
+    transition: transform 0.6s ease, z-index 0s 0.3s;
+}
+
+.envelope.open .envelope__wax-seal {
+    opacity: 0;
+}
+
+.envelope.open .envelope__paper {
+    transform: translateY(-130px);
+    z-index: 5;
+    /* Paper stays at 5, behind pocket (10) but in front of flap (4) */
+}
+
+.envelope.open {
+    /* Fade out the entire envelope wrapper after paper slides up */
+    animation: fadeOutEnvelope 0.5s ease 1.8s forwards;
+}
+
+@keyframes fadeOutEnvelope {
+    to {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+/* ---------------------------------
+   READING MODE (Full Letter)
+   --------------------------------- */
+
+.reading-mode {
+    animation: slideUpLetter 0.8s ease forwards;
+    transform-origin: center;
+}
+
+@keyframes slideUpLetter {
+    from {
+        opacity: 0;
+        transform: translateY(50px) scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.love-letter__paper {
+    max-width: 750px;
+    margin: 0 auto;
+    padding: 56px 48px;
+    background: #fffafa;
+    /* Warm off-white paper color */
+    border-radius: 12px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3), inset 0 0 100px rgba(250, 240, 245, 1);
+    position: relative;
+    color: #4a2b38;
+}
+
+.love-letter__paper::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23fcecef' fill-opacity='0.4' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='3'/%3E%3Ccircle cx='13' cy='13' r='3'/%3E%3C/g%3E%3C/svg%3E");
+    opacity: 0.5;
+    pointer-events: none;
+    border-radius: 12px;
+}
+
+.love-letter__content p {
+    font-size: 1.15rem;
+    line-height: 2.1;
+    margin-bottom: 24px;
+    position: relative;
+    z-index: 1;
+}
+
+.love-letter__content p:last-child {
+    margin-bottom: 0;
+}
+
+.love-letter__highlight {
+    color: #c2185b;
+    font-weight: 600;
+}
+
+.love-letter__closing {
+    margin-top: 40px !important;
+}
+
+.love-letter__signature {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1.5rem;
+    color: #e84393;
+    display: block;
+    text-align: right;
+}
+
+.love-letter__sparkle {
+    position: absolute;
+    font-size: 1.5rem;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.love-letter__sparkle--1 {
+    top: 24px;
+    left: 24px;
+}
+
+.love-letter__sparkle--2 {
+    bottom: 24px;
+    right: 24px;
+    animation-delay: 1s;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .envelope {
+        width: 260px;
+        height: 180px;
+    }
+
+    .envelope__pocket {
+        border-left-width: 130px;
+        border-right-width: 130px;
+        border-bottom-width: 90px;
+        border-top-width: 90px;
+    }
+
+    .envelope__flap {
+        border-left-width: 130px;
+        border-right-width: 130px;
+        border-top-width: 100px;
+    }
+
+    .envelope__paper {
+        height: 160px;
+    }
+
+    .love-letter__paper {
+        padding: 40px 24px;
+    }
+
+    .love-letter__content p {
+        font-size: 1.05rem;
+        line-height: 1.9;
+    }
+
+    .love-letter__signature {
+        font-size: 1.3rem;
+    }
+}
